@@ -7,7 +7,7 @@ Kotlin Multiplatform File IO library.
 
 ## Usage
 
-Full API documentation is available at https://drewcarlson.github.io/kotlin-file-io
+Full API documentation is available at https://drewcarlson.github.io/kotlin-file-io/
 
 ```Kotlin
 val file = File("~/Downloads/file.txt")
@@ -21,7 +21,7 @@ if (file.exists()) {
 file.delete()
 ```
 
-Note for JVM targets, `ktfsio.File` is a typealias for `java.io.File`.
+Note for JVM targets, `ktfio.File` is a typealias for `java.io.File`.
 
 ## Download
 
