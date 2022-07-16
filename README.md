@@ -5,6 +5,24 @@
 
 Kotlin Multiplatform File IO library.
 
+## Usage
+
+Full API documentation is available at https://drewcarlson.github.io/kotlin-file-io
+
+```Kotlin
+val file = File("~/Downloads/file.txt")
+
+println(file.readText()) // Hello World!
+
+if (file.exists()) {
+    file.writeText("Goodbye!")
+}
+
+file.delete()
+```
+
+Note for JVM targets, `ktfsio.File` is a typealias for `java.io.File`.
+
 ## Download
 
 ![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/kotlin-file-io?label=maven&color=blue)
@@ -25,13 +43,15 @@ repositories {
 }
 
 dependencies {
-    implementation("org.drewcarlson:ktfio:$fileIoVersion")
+    implementation("org.drewcarlson:ktfio:$ktfioVersion")
 
-    implementation("org.drewcarlson:ktfio:$fileIoVersion")
-    implementation("org.drewcarlson:ktfio-js:$fileIoVersion") // Node.js only
-    implementation("org.drewcarlson:ktfio-linuxx64:$fileIoVersion")
-    implementation("org.drewcarlson:ktfio-macosx64:$fileIoVersion")
-    implementation("org.drewcarlson:ktfio-macosArm64:$fileIoVersion")
-    implementation("org.drewcarlson:ktfio-mingwx64:$fileIoVersion")
+    // For a single platform:
+    implementation("org.drewcarlson:ktfio:$ktfioVersion")
+    implementation("org.drewcarlson:ktfio-jvm:$ktfioVersion")
+    implementation("org.drewcarlson:ktfio-js:$ktfioVersion") // Node.js only
+    implementation("org.drewcarlson:ktfio-linuxx64:$ktfioVersion")
+    implementation("org.drewcarlson:ktfio-macosx64:$ktfioVersion")
+    implementation("org.drewcarlson:ktfio-macosArm64:$ktfioVersion")
+    implementation("org.drewcarlson:ktfio-mingwx64:$ktfioVersion")
 }
 ```
