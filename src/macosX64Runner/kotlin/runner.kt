@@ -1,5 +1,5 @@
-import me.archinamon.fileio.File
-import me.archinamon.fileio.deleteRecursively
+import ktfio.File
+import ktfio.deleteRecursively
 import platform.posix.sleep
 
 fun main(args: Array<String>) = args.forEach { path ->

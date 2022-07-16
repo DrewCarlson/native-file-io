@@ -1,35 +1,37 @@
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.5.10-blue.svg)](http://kotlinlang.org) ![Maven Central](https://img.shields.io/maven-central/v/me.archinamon/file-io?style=flat-square)
-<br />
+# Kotlin File IO
 
-# native-file-io
-File IO library based on Posix API for Kotlin/Native
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/kotlin-file-io?label=maven&color=blue)
+![](https://github.com/DrewCarlson/kotlin-file-io/workflows/Tests/badge.svg)
 
-Currently, contains only JS, JVM, Windows and Posix (Linux X64 / MacOS X64) actual realisation.
-In plans support mingw (Windows) archetype.
+Kotlin Multiplatform File IO library.
 
-This library shares standard java file API to native environment, implementing Posix API.
+## Download
 
-# how to use it
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/kotlin-file-io?label=maven&color=blue)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/kotlin-file-io?server=https%3A%2F%2Fs01.oss.sonatype.org)
+
+![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
+![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
+![](https://img.shields.io/static/v1?label=&message=Jvm&color=blue)
+![](https://img.shields.io/static/v1?label=&message=Linux&color=blue)
+![](https://img.shields.io/static/v1?label=&message=macOS&color=blue)
+![](https://img.shields.io/static/v1?label=&message=Windows&color=blue)
 
 ```kotlin
-// put this block somewhere in root build.gradle.kts file
-
-allprojects {
-  repositories {
-      mavenCentral()
-  }
+repositories {
+    mavenCentral()
+    // (Optional) For Snapshots:
+    maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
 }
 
-// then in module's build.gradle.kts in target's dependencies section:
-val fileIoVersion: String by extra // reads from gradle.properties
+dependencies {
+    implementation("org.drewcarlson:ktfio:$fileIoVersion")
 
-// expect; for kotlin common modules
-implementation("me.archinamon:file-io:$fileIoVersion")
-
-// actual; demands on target type
-implementation("me.archinamon:file-io-jvm:$fileIoVersion") // for jvm module
-implementation("me.archinamon:file-io-js:$fileIoVersion") // for kotlin-js module
-implementation("me.archinamon:file-io-linuxx64:$fileIoVersion") // for linux x64 posix module
-implementation("me.archinamon:file-io-macosx64:$fileIoVersion") // for macOS x64 posix module
-implementation("me.archinamon:file-io-mingwx64:$fileIoVersion") // for windows x64 module
+    implementation("org.drewcarlson:ktfio:$fileIoVersion")
+    implementation("org.drewcarlson:ktfio-js:$fileIoVersion") // Node.js only
+    implementation("org.drewcarlson:ktfio-linuxx64:$fileIoVersion")
+    implementation("org.drewcarlson:ktfio-macosx64:$fileIoVersion")
+    implementation("org.drewcarlson:ktfio-macosArm64:$fileIoVersion")
+    implementation("org.drewcarlson:ktfio-mingwx64:$fileIoVersion")
+}
 ```

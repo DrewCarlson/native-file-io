@@ -1,5 +1,5 @@
 @file:Suppress("PackageDirectoryMismatch")
-package me.archinamon.fileio
+package ktfio
 
 import java.net.URLConnection
 import java.nio.charset.Charset

@@ -1,4 +1,4 @@
-package me.archinamon.fileio
+package ktfio
 
 import kotlinx.cinterop.*
 import platform.windows.*

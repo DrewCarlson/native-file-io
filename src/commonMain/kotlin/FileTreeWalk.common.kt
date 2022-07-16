@@ -1,4 +1,4 @@
-package me.archinamon.fileio
+package ktfio
 
 // copy from kotlin.io jvm
 

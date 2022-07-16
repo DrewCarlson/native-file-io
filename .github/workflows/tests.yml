@@ -54,7 +54,7 @@ jobs:
         name: Test Apple Targets
         if: startsWith(matrix.os, 'macos')
         with:
-          arguments: macosTest
+          arguments: macosX64Test
 
       - uses: gradle/gradle-build-action@v2
         name: Test Jvm Target

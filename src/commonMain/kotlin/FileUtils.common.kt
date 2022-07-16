@@ -1,4 +1,4 @@
-package me.archinamon.fileio
+package ktfio
 
 fun File.copyTo(dest: String, overwrite: Boolean) {
     this.copyTo(File(dest), overwrite)

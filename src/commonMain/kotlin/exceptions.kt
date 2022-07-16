@@ -1,4 +1,4 @@
-package me.archinamon.fileio
+package ktfio
 
 open class FileIOException(fileName: String, reason: String) : Exception("FileIOException: $fileName ($reason)")
 

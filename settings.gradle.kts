@@ -1,1 +1,1 @@
-rootProject.name = "file-io"
+rootProject.name = "ktfio"

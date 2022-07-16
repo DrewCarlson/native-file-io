@@ -1,4 +1,4 @@
-package me.archinamon.fileio
+package ktfio
 
 expect class File(pathname: String) {
     fun getParent(): String?
