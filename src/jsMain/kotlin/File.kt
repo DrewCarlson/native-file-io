@@ -1,7 +1,7 @@
 package ktfio
 
-import org.w3c.files.File as JsFile
 import org.w3c.files.FileReaderSync
+import org.w3c.files.File as JsFile
 
 actual class File constructor(jsfile: JsFile) {
 

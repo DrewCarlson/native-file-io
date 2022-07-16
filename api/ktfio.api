@@ -1,0 +1,59 @@
+public class ktfio/FileIOException : java/lang/Exception {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+}
+
+public final class ktfio/FileKt {
+	public static final fun appendText (Ljava/io/File;Ljava/lang/String;)V
+	public static final fun getFilePathSeparator ()C
+	public static final fun getMimeType (Ljava/io/File;)Ljava/lang/String;
+	public static final fun readBytes (Ljava/io/File;)[B
+	public static final fun readText (Ljava/io/File;)Ljava/lang/String;
+	public static final fun writeBytes (Ljava/io/File;[B)V
+	public static final fun writeText (Ljava/io/File;Ljava/lang/String;)V
+}
+
+public final class ktfio/FileNotFoundException : ktfio/FileIOException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+}
+
+public final class ktfio/FileTreeWalk : kotlin/sequences/Sequence {
+	public fun iterator ()Ljava/util/Iterator;
+	public final fun maxDepth (I)Lktfio/FileTreeWalk;
+	public final fun onEnter (Lkotlin/jvm/functions/Function1;)Lktfio/FileTreeWalk;
+	public final fun onFail (Lkotlin/jvm/functions/Function2;)Lktfio/FileTreeWalk;
+	public final fun onLeave (Lkotlin/jvm/functions/Function1;)Lktfio/FileTreeWalk;
+}
+
+public final class ktfio/FileTreeWalk_commonKt {
+	public static final fun walk (Ljava/io/File;Lktfio/FileWalkDirection;)Lktfio/FileTreeWalk;
+	public static synthetic fun walk$default (Ljava/io/File;Lktfio/FileWalkDirection;ILjava/lang/Object;)Lktfio/FileTreeWalk;
+	public static final fun walkBottomUp (Ljava/io/File;)Lktfio/FileTreeWalk;
+	public static final fun walkTopDown (Ljava/io/File;)Lktfio/FileTreeWalk;
+}
+
+public final class ktfio/FileUtils_commonKt {
+	public static final fun copyTo (Ljava/io/File;Ljava/io/File;Z)V
+	public static final fun copyTo (Ljava/io/File;Ljava/lang/String;Z)V
+	public static final fun moveTo (Ljava/io/File;Ljava/io/File;Z)V
+	public static final fun moveTo (Ljava/io/File;Ljava/lang/String;Z)V
+}
+
+public final class ktfio/FileWalkDirection : java/lang/Enum {
+	public static final field BOTTOM_UP Lktfio/FileWalkDirection;
+	public static final field TOP_DOWN Lktfio/FileWalkDirection;
+	public static fun valueOf (Ljava/lang/String;)Lktfio/FileWalkDirection;
+	public static fun values ()[Lktfio/FileWalkDirection;
+}
+
+public final class ktfio/File_commonKt {
+	public static final fun asParent (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static final fun deleteRecursively (Ljava/io/File;)Z
+	public static final fun getNameWithoutExtension (Ljava/io/File;)Ljava/lang/String;
+	public static final fun getParentFileUnsafe (Ljava/io/File;)Ljava/io/File;
+	public static final fun validate (Ljava/io/File;)V
+}
+
+public final class ktfio/IllegalFileAccess : ktfio/FileIOException {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+}
+

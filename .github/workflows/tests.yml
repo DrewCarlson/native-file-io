@@ -68,11 +68,11 @@ jobs:
         with:
           arguments: linuxX64Test
 
-      - uses: gradle/gradle-build-action@v2
-        name: Test Js Targets
-        if: startsWith(matrix.os, 'ubuntu')
-        with:
-          arguments: jsTest
+      #- uses: gradle/gradle-build-action@v2
+      #  name: Test Js Targets
+      #  if: startsWith(matrix.os, 'ubuntu')
+      #  with:
+      #    arguments: jsTest
 
       - uses: gradle/gradle-build-action@v2
         name: Test Windows Target

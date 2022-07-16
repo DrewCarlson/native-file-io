@@ -1,4 +1,3 @@
-@file:Suppress("PackageDirectoryMismatch")
 package ktfio
 
 import java.net.URLConnection

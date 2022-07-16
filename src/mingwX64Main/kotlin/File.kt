@@ -6,7 +6,6 @@ import platform.windows.*
 // Difference between January 1, 1601 and January 1, 1970 in millis
 private const val EPOCH_DIFF = 11644473600000
 
-
 actual class File actual constructor(pathname: String) {
 
     private val pathname: String = pathname.replace('/', filePathSeparator)
@@ -137,7 +136,6 @@ actual class File actual constructor(pathname: String) {
             null
         )
 
-
         return try {
             handle != INVALID_HANDLE_VALUE
         } finally {
@@ -170,7 +168,7 @@ actual class File actual constructor(pathname: String) {
         val searchPath = if (pathname.endsWith(filePathSeparator)) {
             pathname
         } else {
-            "$pathname${filePathSeparator}"
+            "$pathname$filePathSeparator"
         } + "*"
         val find = FindFirstFileA(searchPath, findData.ptr)
         if (find == INVALID_HANDLE_VALUE) {
@@ -318,4 +316,3 @@ actual fun File.appendText(text: String) {
 actual fun File.writeText(text: String) {
     writeBytes(text.encodeToByteArray(), GENERIC_WRITE)
 }
-

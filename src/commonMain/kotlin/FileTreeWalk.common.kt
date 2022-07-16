@@ -10,6 +10,7 @@ package ktfio
 enum class FileWalkDirection {
     /** Depth-first search, directory is visited BEFORE its files */
     TOP_DOWN,
+
     /** Depth-first search, directory is visited AFTER its files */
     BOTTOM_UP
 }
@@ -62,12 +63,12 @@ class FileTreeWalk private constructor(
 
         override fun computeNext() {
             val nextFile = gotoNext()
-            if (nextFile != null)
+            if (nextFile != null) {
                 setNext(nextFile)
-            else
+            } else {
                 done()
+            }
         }
-
 
         private fun directoryState(root: File): DirectoryState {
             return when (direction) {
@@ -192,7 +193,6 @@ class FileTreeWalk private constructor(
                 return root
             }
         }
-
     }
 
     /**

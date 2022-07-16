@@ -208,7 +208,7 @@ actual class File actual constructor(
             "isDirectory=${isDirectory()}\n" +
             "lastModified=${lastModified()}\n" +
             (if (isDirectory()) "files=[${listFiles().joinToString()}]" else "") +
-        "}"
+            "}"
     }
 }
 
@@ -227,7 +227,7 @@ internal expect fun closedir(dir: CPointer<out CPointed>): Int
 @SharedImmutable
 actual val filePathSeparator by lazy { if (Platform.osFamily == OsFamily.WINDOWS) '\\' else '/' }
 
-//todo determine mimeType on file extension; see jdk mappings
+// todo determine mimeType on file extension; see jdk mappings
 actual val File.mimeType: String
     get() = ""
 
