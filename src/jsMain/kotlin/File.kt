@@ -13,13 +13,7 @@ actual class File constructor(jsfile: JsFile) {
     }
 
     actual fun getParent(): String? {
-        return when {
-            !exists() -> null
-            filePathSeparator in innerFile.name -> innerFile.name
-                .split(filePathSeparator)
-                .let { if (it.size > 1) it[it.lastIndex - 1] else it.last() }
-            else -> innerFile.name
-        }
+        return if (exists()) getAbsolutePath().substringBeforeLast(filePathSeparator) else null
     }
 
     actual fun getParentFile(): File? {
