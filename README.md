@@ -1,6 +1,6 @@
 # Kotlin File IO
 
-![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/kotlin-file-io?label=maven&color=blue)
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/ktfio?label=maven&color=blue)
 ![](https://github.com/DrewCarlson/kotlin-file-io/workflows/Tests/badge.svg)
 
 Kotlin Multiplatform File IO library.
@@ -25,8 +25,8 @@ Note for JVM targets, `ktfio.File` is a typealias for `java.io.File`.
 
 ## Download
 
-![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/kotlin-file-io?label=maven&color=blue)
-![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/kotlin-file-io?server=https%3A%2F%2Fs01.oss.sonatype.org)
+![Maven Central](https://img.shields.io/maven-central/v/org.drewcarlson/ktfio?label=maven&color=blue)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/org.drewcarlson/ktfio?server=https%3A%2F%2Fs01.oss.sonatype.org)
 
 ![](https://img.shields.io/static/v1?label=&message=Platforms&color=grey)
 ![](https://img.shields.io/static/v1?label=&message=Js&color=blue)
