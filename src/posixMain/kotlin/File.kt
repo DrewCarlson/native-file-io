@@ -254,6 +254,10 @@ actual fun File.writeBytes(bytes: ByteArray) {
     writeBytes(bytes, O_RDWR, bytes.size.convert(), Byte.SIZE_BYTES.convert())
 }
 
+actual fun File.appendBytes(bytes: ByteArray) {
+    writeBytes(bytes, O_APPEND, bytes.size.convert(), Byte.SIZE_BYTES.convert())
+}
+
 actual fun File.readText(): String {
     return readBytes().toKString()
 }

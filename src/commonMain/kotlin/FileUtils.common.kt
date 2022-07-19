@@ -35,3 +35,5 @@ fun File.moveTo(dest: File, overwrite: Boolean) {
 }
 
 expect fun File.writeBytes(bytes: ByteArray)
+
+expect fun File.appendBytes(bytes: ByteArray)

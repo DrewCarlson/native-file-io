@@ -219,7 +219,11 @@ actual class File actual constructor(pathname: String) {
         return SHFileOperationA(fileOp.ptr) == 0
     }
 
-    internal fun writeBytes(bytes: ByteArray, access: Int) {
+    internal fun writeBytes(
+        bytes: ByteArray,
+        access: Int,
+        append: Boolean = false,
+    ) {
         val handle = CreateFileA(
             getAbsolutePath(),
             access.toUInt(),
@@ -303,6 +307,10 @@ actual fun File.readBytes(): ByteArray = memScoped {
 actual fun File.writeBytes(bytes: ByteArray) {
     // no need to use pinning or memscope, cause it's inside the method already does
     writeBytes(bytes, GENERIC_WRITE)
+}
+
+actual fun File.appendBytes(bytes: ByteArray) {
+    writeBytes(bytes, FILE_APPEND_DATA)
 }
 
 actual fun File.readText(): String {

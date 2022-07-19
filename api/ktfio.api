@@ -3,6 +3,7 @@ public class ktfio/FileIOException : java/lang/Exception {
 }
 
 public final class ktfio/FileKt {
+	public static final fun appendBytes (Ljava/io/File;[B)V
 	public static final fun appendText (Ljava/io/File;Ljava/lang/String;)V
 	public static final fun getFilePathSeparator ()C
 	public static final fun getMimeType (Ljava/io/File;)Ljava/lang/String;
