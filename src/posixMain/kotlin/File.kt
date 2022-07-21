@@ -12,34 +12,7 @@ import kotlinx.cinterop.ptr
 import kotlinx.cinterop.refTo
 import kotlinx.cinterop.toKString
 import kotlinx.cinterop.usePinned
-import platform.posix.FILENAME_MAX
-import platform.posix.F_OK
-import platform.posix.NULL
-import platform.posix.O_APPEND
-import platform.posix.O_CREAT
-import platform.posix.O_RDWR
-import platform.posix.R_OK
-import platform.posix.SEEK_END
-import platform.posix.SEEK_SET
-import platform.posix.S_IFDIR
-import platform.posix.S_IFREG
-import platform.posix.S_IRWXG
-import platform.posix.S_IRWXO
-import platform.posix.S_IRWXU
-import platform.posix.W_OK
-import platform.posix.access
-import platform.posix.dirent
-import platform.posix.fclose
-import platform.posix.fopen
-import platform.posix.fread
-import platform.posix.fseek
-import platform.posix.ftell
-import platform.posix.fwrite
-import platform.posix.getcwd
-import platform.posix.rmdir
-import platform.posix.stat
-import platform.posix.strlen
-import platform.posix.unlink
+import platform.posix.*
 
 actual class File actual constructor(
     private val pathname: String
@@ -99,6 +72,10 @@ actual class File actual constructor(
         }
 
         return exists()
+    }
+
+    actual fun renameTo(file: File): Boolean {
+        return rename(getAbsolutePath(), file.getAbsolutePath()) == 0
     }
 
     actual fun isFile(): Boolean {

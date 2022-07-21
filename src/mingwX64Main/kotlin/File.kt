@@ -86,6 +86,10 @@ actual class File actual constructor(pathname: String) {
         }
     }
 
+    actual fun renameTo(file: File): Boolean {
+        return MoveFileExA(getAbsolutePath(), file.getAbsolutePath(), MOVEFILE_WRITE_THROUGH) > 0
+    }
+
     actual fun isFile(): Boolean {
         return GetFileAttributesA(pathname).let { attrs ->
             attrs != INVALID_FILE_ATTRIBUTES &&

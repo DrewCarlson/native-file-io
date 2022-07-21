@@ -36,6 +36,10 @@ actual class File constructor(jsfile: JsFile) {
         throw UnsupportedOperationException("Not available in JS!")
     }
 
+    actual fun renameTo(file: File): Boolean {
+        throw UnsupportedOperationException("Not available in JS!")
+    }
+
     actual fun isFile(): Boolean {
         return true // always a file in js
     }

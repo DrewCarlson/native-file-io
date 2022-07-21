@@ -9,6 +9,7 @@ expect class File(pathname: String) {
     fun lastModified(): Long
     fun mkdirs(): Boolean
     fun createNewFile(): Boolean
+    fun renameTo(file: File): Boolean
 
     fun isFile(): Boolean
     fun isDirectory(): Boolean
