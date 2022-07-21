@@ -66,6 +66,13 @@ expect fun File.readBytes(): ByteArray
 
 expect fun File.readText(): String
 
+/**
+ * Read each line of UTF8 text from the file.
+ *
+ * @return A [Sequence] of line strings with line endings trimmed.
+ */
+expect fun File.readUTF8Lines(): Sequence<String>
+
 expect fun File.appendText(text: String)
 
 expect fun File.writeText(text: String)

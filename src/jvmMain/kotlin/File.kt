@@ -1,5 +1,8 @@
 package ktfio
 
+import java.io.BufferedReader
+import java.io.FileInputStream
+import java.io.InputStreamReader
 import java.net.URLConnection
 import java.nio.charset.Charset
 import kotlin.io.appendBytes as kAppendBytes
@@ -16,6 +19,13 @@ actual val File.mimeType: String
 actual fun File.readBytes() = kReadBytes()
 
 actual fun File.readText() = readText(Charset.defaultCharset())
+
+actual fun File.readUTF8Lines(): Sequence<String> {
+    return sequence {
+        BufferedReader(InputStreamReader(FileInputStream(this@readUTF8Lines), Charsets.UTF_8))
+            .use { reader -> while (reader.ready()) yield(reader.readLine()) }
+    }
+}
 
 actual fun File.writeBytes(bytes: ByteArray) = kWriteBytes(bytes)
 

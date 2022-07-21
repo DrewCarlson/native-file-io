@@ -1,6 +1,9 @@
 package ktfio
 
 import kotlinx.cinterop.*
+import platform.posix.fclose
+import platform.posix.fgets
+import platform.posix.fopen
 import platform.windows.*
 
 // Difference between January 1, 1601 and January 1, 1970 in millis
@@ -93,14 +96,14 @@ actual class File actual constructor(pathname: String) {
     actual fun isFile(): Boolean {
         return GetFileAttributesA(pathname).let { attrs ->
             attrs != INVALID_FILE_ATTRIBUTES &&
-                attrs and FILE_ATTRIBUTE_DIRECTORY.toUInt() == 0u
+                    attrs and FILE_ATTRIBUTE_DIRECTORY.toUInt() == 0u
         }
     }
 
     actual fun isDirectory(): Boolean {
         return GetFileAttributesA(pathname).let { attrs ->
             attrs != INVALID_FILE_ATTRIBUTES &&
-                (attrs and FILE_ATTRIBUTE_DIRECTORY.toUInt() != 0u)
+                    (attrs and FILE_ATTRIBUTE_DIRECTORY.toUInt() != 0u)
         }
     }
 
@@ -263,16 +266,16 @@ actual class File actual constructor(pathname: String) {
 
     override fun toString(): String {
         return "File {\n" +
-            "path=${getAbsolutePath()}\n" +
-            "name=${getName()}\n" +
-            "exists=${exists()}\n" +
-            "canRead=${canRead()}\n" +
-            "canWrite=${canWrite()}\n" +
-            "isFile=${isFile()}\n" +
-            "isDirectory=${isDirectory()}\n" +
-            "lastModified=${lastModified()}\n" +
-            (if (isDirectory()) "files=[${listFiles().joinToString()}]" else "") +
-            "}"
+                "path=${getAbsolutePath()}\n" +
+                "name=${getName()}\n" +
+                "exists=${exists()}\n" +
+                "canRead=${canRead()}\n" +
+                "canWrite=${canWrite()}\n" +
+                "isFile=${isFile()}\n" +
+                "isDirectory=${isDirectory()}\n" +
+                "lastModified=${lastModified()}\n" +
+                (if (isDirectory()) "files=[${listFiles().joinToString()}]" else "") +
+                "}"
     }
 }
 
@@ -323,6 +326,33 @@ actual fun File.appendBytes(bytes: ByteArray) {
 
 actual fun File.readText(): String {
     return readBytes().toKString()
+}
+
+actual fun File.readUTF8Lines(): Sequence<String> = sequence {
+    val handle = fopen(getAbsolutePath(), "r")
+    val overflow by lazy { StringBuilder() }
+    memScoped {
+        try {
+            val lineBufferSize = 1024
+            val lineCstr = allocArray<ByteVar>(lineBufferSize)
+            while (true) {
+                fgets(lineCstr, lineBufferSize, handle) ?: break // read the line or end loop if null/EOF
+                val lineKstr = lineCstr.toKStringFromUtf8().trimEnd('\n')
+                if (lineCstr[lineBufferSize - 1] == 0.toByte() && lineCstr[lineBufferSize - 2] != '\n'.code.toByte()) {
+                    overflow.append(lineKstr) // Read incomplete line, overflow is required
+                } else if (overflow.isEmpty()) {
+                    yield(lineKstr) // Whole line was read to buffer and no overflow to append
+                } else {
+                    // Remaining line loaded, join with overflow and yield a complete line
+                    overflow.append(lineKstr)
+                    yield(overflow.toString())
+                    overflow.clear()
+                }
+            }
+        } finally {
+            fclose(handle)
+        }
+    }
 }
 
 actual fun File.appendText(text: String) {

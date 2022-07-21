@@ -86,6 +86,10 @@ actual fun File.readBytes(): ByteArray {
     return readText().encodeToByteArray()
 }
 
+actual fun File.readUTF8Lines(): Sequence<String> {
+    return readText().lineSequence()
+}
+
 actual fun File.readText(): String {
     return FileReaderSync().readAsText(innerFile)
 }

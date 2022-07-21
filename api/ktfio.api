@@ -9,6 +9,7 @@ public final class ktfio/FileKt {
 	public static final fun getMimeType (Ljava/io/File;)Ljava/lang/String;
 	public static final fun readBytes (Ljava/io/File;)[B
 	public static final fun readText (Ljava/io/File;)Ljava/lang/String;
+	public static final fun readUTF8Lines (Ljava/io/File;)Lkotlin/sequences/Sequence;
 	public static final fun writeBytes (Ljava/io/File;[B)V
 	public static final fun writeText (Ljava/io/File;Ljava/lang/String;)V
 }

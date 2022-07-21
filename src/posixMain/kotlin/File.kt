@@ -1,17 +1,6 @@
 package ktfio
 
-import kotlinx.cinterop.CPointed
-import kotlinx.cinterop.CPointer
-import kotlinx.cinterop.addressOf
-import kotlinx.cinterop.alloc
-import kotlinx.cinterop.allocArray
-import kotlinx.cinterop.convert
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.pointed
-import kotlinx.cinterop.ptr
-import kotlinx.cinterop.refTo
-import kotlinx.cinterop.toKString
-import kotlinx.cinterop.usePinned
+import kotlinx.cinterop.*
 import platform.posix.*
 
 actual class File actual constructor(
@@ -223,6 +212,33 @@ actual fun File.readBytes(): ByteArray {
         }
     } finally {
         fclose(fd).ensureUnixCallResult("fclose") { ret -> ret == 0 }
+    }
+}
+
+actual fun File.readUTF8Lines(): Sequence<String> = sequence {
+    val handle = fopen(getAbsolutePath(), "r")
+    val overflow by lazy { StringBuilder() }
+    memScoped {
+        try {
+            val lineBufferSize = 1024
+            val lineCstr = allocArray<ByteVar>(lineBufferSize)
+            while (true) {
+                fgets(lineCstr, lineBufferSize, handle) ?: break // read the line or end loop if null/EOF
+                val lineKstr = lineCstr.toKStringFromUtf8().trimEnd('\n')
+                if (lineCstr[lineBufferSize - 1] == 0.toByte() && lineCstr[lineBufferSize - 2] != '\n'.code.toByte()) {
+                    overflow.append(lineKstr) // Read incomplete line, overflow is required
+                } else if (overflow.isEmpty()) {
+                    yield(lineKstr) // Whole line was read to buffer and no overflow to append
+                } else {
+                    // Remaining line loaded, join with overflow and yield a complete line
+                    overflow.append(lineKstr)
+                    yield(overflow.toString())
+                    overflow.clear()
+                }
+            }
+        } finally {
+            fclose(handle)
+        }
     }
 }
 
