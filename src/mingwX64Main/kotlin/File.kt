@@ -209,10 +209,14 @@ actual class File actual constructor(pathname: String) {
     actual fun delete(): Boolean = memScoped {
         if (isFile()) return DeleteFileA(pathname) == TRUE
 
+        val pathnameBytes = pathname.encodeToByteArray()
+        val pathCstr = allocArray<ByteVar>(pathnameBytes.size + 2)
+        pathnameBytes.forEachIndexed { index, byte -> pathCstr[index] = byte }
+
         val fileOp = alloc<SHFILEOPSTRUCTA> {
             hwnd = null
             wFunc = FO_DELETE.toUInt()
-            pFrom = pathname.cstr.ptr
+            pFrom = pathCstr
             pTo = null
             fFlags = (FOF_SILENT or FOF_NOCONFIRMATION or FOF_NOERRORUI).toUShort()
             fAnyOperationsAborted = FALSE
@@ -227,11 +231,7 @@ actual class File actual constructor(pathname: String) {
         return success || (!success && !exists())
     }
 
-    internal fun writeBytes(
-        bytes: ByteArray,
-        access: Int,
-        append: Boolean = false,
-    ) {
+    internal fun writeBytes(bytes: ByteArray, access: Int) {
         val handle = CreateFileA(
             getAbsolutePath(),
             access.toUInt(),
