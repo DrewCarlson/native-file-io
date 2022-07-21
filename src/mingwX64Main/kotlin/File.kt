@@ -220,7 +220,11 @@ actual class File actual constructor(pathname: String) {
             lpszProgressTitle = null
         }
 
-        return SHFileOperationA(fileOp.ptr) == 0
+        // NOTE: For reasons I cannot identify, the result code is sometimes 87
+        // but the file is still removed, hence the second check if the file
+        // still exists if the deletion failed.
+        val success = SHFileOperationA(fileOp.ptr) == 0
+        return success || (!success && !exists())
     }
 
     internal fun writeBytes(
