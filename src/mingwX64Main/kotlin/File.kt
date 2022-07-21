@@ -96,14 +96,14 @@ actual class File actual constructor(pathname: String) {
     actual fun isFile(): Boolean {
         return GetFileAttributesA(pathname).let { attrs ->
             attrs != INVALID_FILE_ATTRIBUTES &&
-                    attrs and FILE_ATTRIBUTE_DIRECTORY.toUInt() == 0u
+                attrs and FILE_ATTRIBUTE_DIRECTORY.toUInt() == 0u
         }
     }
 
     actual fun isDirectory(): Boolean {
         return GetFileAttributesA(pathname).let { attrs ->
             attrs != INVALID_FILE_ATTRIBUTES &&
-                    (attrs and FILE_ATTRIBUTE_DIRECTORY.toUInt() != 0u)
+                (attrs and FILE_ATTRIBUTE_DIRECTORY.toUInt() != 0u)
         }
     }
 
@@ -266,16 +266,16 @@ actual class File actual constructor(pathname: String) {
 
     override fun toString(): String {
         return "File {\n" +
-                "path=${getAbsolutePath()}\n" +
-                "name=${getName()}\n" +
-                "exists=${exists()}\n" +
-                "canRead=${canRead()}\n" +
-                "canWrite=${canWrite()}\n" +
-                "isFile=${isFile()}\n" +
-                "isDirectory=${isDirectory()}\n" +
-                "lastModified=${lastModified()}\n" +
-                (if (isDirectory()) "files=[${listFiles().joinToString()}]" else "") +
-                "}"
+            "path=${getAbsolutePath()}\n" +
+            "name=${getName()}\n" +
+            "exists=${exists()}\n" +
+            "canRead=${canRead()}\n" +
+            "canWrite=${canWrite()}\n" +
+            "isFile=${isFile()}\n" +
+            "isDirectory=${isDirectory()}\n" +
+            "lastModified=${lastModified()}\n" +
+            (if (isDirectory()) "files=[${listFiles().joinToString()}]" else "") +
+            "}"
     }
 }
 
