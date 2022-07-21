@@ -1,5 +1,14 @@
 package ktfio
 
+import kotlin.native.concurrent.SharedImmutable
+
+@SharedImmutable
+private val pathSeparator by lazy { filePathSeparator.toString() }
+private fun PathString(vararg parts: String): String = parts.joinToString(pathSeparator)
+
+fun File(parentPathname: String, childName: String, vararg childParts: String) =
+    File(PathString(parentPathname, childName, *childParts))
+
 expect class File(pathname: String) {
     fun getParent(): String?
     fun getParentFile(): File?
@@ -26,12 +35,27 @@ expect class File(pathname: String) {
     fun delete(): Boolean
 }
 
-expect val filePathSeparator: Char
-
-fun File.asParent(child: String): File {
-    val path = getAbsolutePath() + filePathSeparator + child
-    return File(path)
+/**
+ * Create a [File] referring to the [child] file
+ * within this [File], assuming it is a directory.
+ *
+ * NOTE: It is the user's responsibility to validate
+ * the receiver is a valid directory.
+ */
+fun File.nestedFile(child: String): File {
+    return File(getAbsolutePath(), child)
 }
+
+/**
+ * Create a [File] referring to the [sibling] file
+ * inside this file's [File.getParent] or null if
+ * there is no parent folder.
+ */
+fun File.siblingFile(sibling: String): File? {
+    return getParent()?.let { File(it, sibling) }
+}
+
+expect val filePathSeparator: Char
 
 val File.nameWithoutExtension: String
     get() = getName().substringBeforeLast(".")

@@ -47,10 +47,12 @@ public final class ktfio/FileWalkDirection : java/lang/Enum {
 }
 
 public final class ktfio/File_commonKt {
-	public static final fun asParent (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static final fun File (Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)Ljava/io/File;
 	public static final fun deleteRecursively (Ljava/io/File;)Z
 	public static final fun getNameWithoutExtension (Ljava/io/File;)Ljava/lang/String;
 	public static final fun getParentFileUnsafe (Ljava/io/File;)Ljava/io/File;
+	public static final fun nestedFile (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static final fun siblingFile (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
 	public static final fun validate (Ljava/io/File;)V
 }
 
