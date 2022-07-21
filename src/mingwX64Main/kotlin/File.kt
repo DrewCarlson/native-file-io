@@ -222,7 +222,7 @@ actual class File actual constructor(pathname: String) {
 
         // NOTE: For reasons I cannot identify, the result code is sometimes 87
         // but the file is still removed, hence the second check if the file
-        // still exists if the deletion failed.
+        // still exists when the deletion has failed.
         val success = SHFileOperationA(fileOp.ptr) == 0
         return success || (!success && !exists())
     }
