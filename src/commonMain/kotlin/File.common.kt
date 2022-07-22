@@ -9,6 +9,8 @@ private fun PathString(vararg parts: String): String = parts.joinToString(pathSe
 fun File(parentPathname: String, childName: String, vararg childParts: String) =
     File(PathString(parentPathname, childName, *childParts))
 
+internal const val LINE_BUFFER_SIZE = 1024
+
 expect class File(pathname: String) {
     fun getParent(): String?
     fun getParentFile(): File?

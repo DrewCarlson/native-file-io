@@ -216,18 +216,17 @@ actual fun File.readBytes(): ByteArray {
 }
 
 actual fun File.readUTF8Lines(): Sequence<String> = sequence {
-    val handle = fopen(getAbsolutePath(), "r")
-    val overflow by lazy { StringBuilder() }
-    memScoped {
-        try {
-            val lineBufferSize = 1024
-            val lineCstr = allocArray<ByteVar>(lineBufferSize)
+    val handle = fopen(getAbsolutePath(), "r") ?: return@sequence
+    try {
+        memScoped {
+            val overflow = StringBuilder()
+            val lineCstr = allocArray<ByteVar>(LINE_BUFFER_SIZE)
             while (true) {
-                fgets(lineCstr, lineBufferSize, handle) ?: break // read the line or end loop if null/EOF
+                fgets(lineCstr, LINE_BUFFER_SIZE, handle) ?: break // read the line or end loop if null/EOF
                 val lineKstr = lineCstr.toKStringFromUtf8().trimEnd('\n')
-                if (lineCstr[lineBufferSize - 1] == 0.toByte() && lineCstr[lineBufferSize - 2] != '\n'.code.toByte()) {
+                if (lineCstr[LINE_BUFFER_SIZE - 1] == 0.toByte() && lineCstr[lineKstr.length] != '\n'.code.toByte()) {
                     overflow.append(lineKstr) // Read incomplete line, overflow is required
-                } else if (overflow.isEmpty()) {
+                } else if (overflow.isBlank()) {
                     yield(lineKstr) // Whole line was read to buffer and no overflow to append
                 } else {
                     // Remaining line loaded, join with overflow and yield a complete line
@@ -236,9 +235,9 @@ actual fun File.readUTF8Lines(): Sequence<String> = sequence {
                     overflow.clear()
                 }
             }
-        } finally {
-            fclose(handle)
         }
+    } finally {
+        fclose(handle)
     }
 }
 
