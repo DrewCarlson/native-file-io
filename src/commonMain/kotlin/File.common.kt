@@ -35,6 +35,9 @@ expect class File(pathname: String) {
     fun listFiles(): Array<File>
 
     fun delete(): Boolean
+
+    override fun equals(other: Any?): Boolean
+    override fun hashCode(): Int
 }
 
 /**

@@ -264,6 +264,20 @@ actual class File actual constructor(pathname: String) {
         }
     }
 
+    actual override fun equals(other: Any?): Boolean {
+        return when (other) {
+            is File -> other.pathname == pathname
+            else -> false
+        }
+    }
+
+    actual override fun hashCode(): Int {
+        var hash = 17
+        hash = hash * 31 + pathname.hashCode()
+        hash = hash * 31 + File::class.hashCode()
+        return hash
+    }
+
     override fun toString(): String {
         return "File {\n" +
             "path=${getAbsolutePath()}\n" +

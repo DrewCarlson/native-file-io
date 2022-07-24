@@ -75,6 +75,20 @@ actual class File constructor(jsfile: JsFile) {
     actual fun delete(): Boolean {
         throw UnsupportedOperationException("Not available in JS!")
     }
+
+    actual override fun equals(other: Any?): Boolean {
+        return when (other) {
+            is File -> other.innerFile == innerFile
+            else -> false
+        }
+    }
+
+    actual override fun hashCode(): Int {
+        var hash = 17
+        hash = hash * 31 + innerFile.hashCode()
+        hash = hash * 31 + File::class.hashCode()
+        return hash
+    }
 }
 
 actual val filePathSeparator by lazy { '/' }
