@@ -14,7 +14,7 @@ actual class File actual constructor(pathname: String) {
     private val pathname: String = pathname.replace('/', filePathSeparator)
 
     actual fun getParent(): String? {
-        return if (exists()) getAbsolutePath().substringBeforeLast(filePathSeparator) else null
+        return getAbsolutePath().substringBeforeLast(filePathSeparator, "").takeUnless(String::isBlank)
     }
 
     actual fun getParentFile(): File? {

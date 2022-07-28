@@ -13,7 +13,7 @@ actual class File constructor(jsfile: JsFile) {
     }
 
     actual fun getParent(): String? {
-        return if (exists()) getAbsolutePath().substringBeforeLast(filePathSeparator) else null
+        return getAbsolutePath().substringBeforeLast(filePathSeparator, "").takeUnless(String::isBlank)
     }
 
     actual fun getParentFile(): File? {
