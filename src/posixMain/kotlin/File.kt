@@ -41,8 +41,10 @@ actual class File actual constructor(
     actual fun mkdirs(): Boolean {
         if (exists()) return false
 
-        if (getParentFile()?.exists() == false) {
-            getParentFile()?.mkdirs()
+        var parent = getParentFile()
+        while (parent != null && !parent.exists()) {
+            parent.mkdirs()
+            parent = parent.getParentFile()
         }
 
         mkdir(pathname, (S_IRWXU or S_IRWXG or S_IRWXO).convert())
