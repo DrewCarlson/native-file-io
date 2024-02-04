@@ -4,7 +4,7 @@ dokka = "1.7.10"
 ktorio = "2.0.3"
 binary_compat = "0.11.0"
 
-spotless = "6.8.0"
+spotless = "6.25.0"
 ktlint = "0.46.1"
 
 [plugins]
